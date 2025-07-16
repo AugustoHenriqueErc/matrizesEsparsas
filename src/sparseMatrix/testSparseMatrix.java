@@ -9,6 +9,5 @@ public class testSparseMatrix {
         System.out.println("Verificando inserção no meio:");
         sm.insert (5,5,5);
         sm.print();
-
     }
 }
