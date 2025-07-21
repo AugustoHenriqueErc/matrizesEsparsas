@@ -1,14 +1,12 @@
 package sparseMatrix;
 
-import java.util.ArrayList;
-
 public class MySparseMatrix implements SparseMatrix {
-    private int vLength; //vertical size (collums)
-    private int hLength; //horizontal size
+    private int nlines; //vertical size (collums)
+    private int nCollums; //horizontal size
     private final Cell head;
     public MySparseMatrix() {
-        this.vLength = 0;
-        this.hLength = 0;
+        this.nlines = 0;
+        this.nCollums = 0;
         this.head = new Cell(0,-1, -1);
         head.setNextDown(head);
         head.setNextRight(head);
@@ -57,32 +55,33 @@ public class MySparseMatrix implements SparseMatrix {
     }
 
     private int getVLength(){
-        return vLength;
+        return nlines;
     }
-    private int gethLength(){
-        return hLength;
+    private int getnCollums(){
+        return nCollums;
     }
     //i = vertical position;
     // j = horizontal position;
     public void insert(int i, int j, float v){
         Cell cell = new Cell(v,i,j);
-        if(getVLength() == 0 && gethLength() == 0){
+        if(getVLength() == 0 && getnCollums() == 0){
             for(int k = 0; k < j; k++){ //Iterations to create the amout of grid lines
                 Cell gridLine = new Cell(0,-1,0);
                 addRight(gridLine);
                 gridLine.setNextDown(null);
-                vLength++;
+                nlines++;
             }
             for(int k = 0; k < i; k++){ //Iterations to create the amount of grid collums
                 Cell gridCollum = new Cell(0,0,-1);
                 addDown(gridCollum);
                 gridCollum.setNextRight(null);
-                hLength++;
+                nCollums++;
             }
         }
     }
     @Override
     public void print() {
+        /*
         Cell aux = head.getNextDown();
         for(int i = 0; i < hLength; i++){
             do{
@@ -110,6 +109,23 @@ public class MySparseMatrix implements SparseMatrix {
                 }
                 aux = aux.getNextDown();
             }while (aux.getNextDown() != head);
+        }
+         */
+        Cell aux = head;
+        for(int i = 0; i < nlines; i++){
+            System.out.println(); //pula a linha e itera a próxima célula de baixo
+            aux = aux.getNextDown(); //
+            for(int j = 0; j < nCollums;j++) {
+                aux = aux.getNextRight();
+                if(aux.getCollum() == j + 1) {
+                    System.out.print(aux.getValue());
+                }
+                else { // Caso o número da coluna da célula seja maior cria um for para veriifcar quantos '0' printar
+                    for(int k = 0; k < aux.getLine() - j;k++) {
+                        System.out.println(0);
+                    }
+                }
+            }
         }
     }
     public void multiply(MySparseMatrix A, MySparseMatrix B){

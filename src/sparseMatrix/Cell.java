@@ -22,15 +22,15 @@ public class Cell {
     public void setNextRight(Cell nextRight) {
         this.nextRight = nextRight;
     }
-    public void setNextDown(Cell nextDown){
+    public void setNextDown(Cell nextDown) {
         this.nextDown = nextDown;
     }
 
-    public Cell getNextRight() { //throws NullPointerException
+    public Cell getNextRight() throws NullPointerException {
         return nextRight;
     }
 
-    public Cell getNextDown(){ //throws NullPointerException
+    public Cell getNextDown() throws NullPointerException {
         return nextDown;
     }
 
